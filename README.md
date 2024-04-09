@@ -2,7 +2,7 @@
 
 This repository is used for the development and implementation
 of Q-Game, which is a distributed 2-4 player turn-based strategy game
-loosely based on the board game Qwirkle. 
+loosely based on the board game Qwirkle.
 
 <h3>Game Overview</h3>
 
@@ -10,21 +10,21 @@ A standard Q-Game is a 2-4 player board game in which each player must attempt t
 many points as possible by placing down successive tiles in appropriate ordering
 on the board.
 
-The game's board size is bounded only the by existing tiles that have been placed on 
+The game's board size is bounded only the by existing tiles that have been placed on
 the board, which can be extended upon by a player on their turn. There are 30 tiles of
 each of the 36 tile variants, for a total of 1080 in a game.
 
 <h4>A tile is defined by 2 properties:</h4>
 - Shape: "star", "8star", "square", "circle", "clover", "diamond".
 - Color: "red", "green", "blue", "yellow", "orange", "purple".  
-Both these lists are ordered from least to greatest value. 
+Both these lists are ordered from least to greatest value.
 
 <h4>Setup</h4>
 On setup, the Referee, which is an omniscient controller method
 for the game, will authenticate each player and give them
 their starting hand of tiles. Turn-order is established by connection
 order, and the game starts with the Referee placing a tile on the
-board. 
+board.
 
 <h4>Gameplay</h4>
 On a turn a player can do one of three things:
@@ -41,7 +41,7 @@ the placements follow the rules.
    one row. 
     - Each tile placed must extend the existing board.
     - Each tile placed and its immediate horizontal neighbors must match in shape or color.
-    - Each tile placed and its immediate vertical neighbors must match in shape or color. 
+    - Each tile placed and its immediate vertical neighbors must match in shape or color.
 
 <h4>Scoring</h4>
 A player gets points as seen below for the following actions:
@@ -57,7 +57,7 @@ A player gets points as seen below for the following actions:
 <h4>Breaking the Rules</h4>
 If at any point the referee determines a player cheats or they fail
 to respond appropriately in a timely fashion, said player is ejected from
-the game. Their turn will always be skipped. 
+the game. Their turn will always be skipped.
 
 <h4>Ending the Game</h4>
 The game ends when one of the following conditions are met. 
@@ -71,28 +71,29 @@ framework for players and the game to communicate even when on
 different systems. The following UML diagram documents the expected
 interactions between the Server the game is hosted on and the player
 Clients that attempt to connect to the game.
-![remote-interactions.png](Q%2FPlanning%2Fremote-interactions.png)
 
-Notably, this design makes use of the remote-proxy pattern to 
+![remote-interactions.png](Q/Planning/remote-interactions.png)
+
+Notably, this design makes use of the remote-proxy pattern to
 ensure that the Referee and each Player are themselves agnostic
 to the specific implementation of communication. The proxies currently
-communicate through the JSON wire protocol. On setup, the server has 
-a configurable waiting time for an appropriate number of players to 
+communicate through the JSON wire protocol. On setup, the server has
+a configurable waiting time for an appropriate number of players to
 connect before starting the game, represented as a finite number of
 waiting periods of a defined time. Once connections are properly established,
-the game can commence as normal. During the game, the referee has a 
+the game can commence as normal. During the game, the referee has a
 configurable waiting time for a player's response before it determines that
 player to be unresponsive. Unresponsive players are disconnected in the same
 way that cheating players are. Server-client connections are cleanly disconnected
-because each server and client is a Runnable object, meaning that the thread 
-they run on's existence is directly tied to if said program is still running. 
+because each server and client is a Runnable object, meaning that the thread
+they run on's existence is directly tied to if said program is still running.
 
 <h3>Players</h3>
+
 Any player who wishes to participate in Q-Game will have to implement
-our player API, which can be seen [here](https://github.khoury.northeastern.edu/CS4500-F23/whimsical-wolves/blob/e4b98843700ce51811766285273b2a4f64782740/Q/Common/src/qgame/player/Player.java)
-.
+our player API, which can be seen [here](https://github.com/ethandcosta/qgame/blob/main/Q/Player/player.java).
 
 It is recommended that player's develop some sort of strategy algorithm
 to assist them in determining the appropriate action in their turn. Two examples
-of naive player strategies can be found [here](https://github.khoury.northeastern.edu/CS4500-F23/whimsical-wolves/blob/32195c3d3af0cb3ca01bf5be1ee42fde96168037/Q/Common/src/qgame/player/strategy)
-. 
+of naive player strategies can be found [here](https://github.com/ethandcosta/qgame/tree/main/Q/Common/src/qgame/player/strategy).
+.
