@@ -1,8 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "local-dependencies/gson-2.10.1.jar",
-        "local-dependencies/junit-4.13.2.jar",
-        "local-dependencies/hamcrest-2.2.jar"
-    ]
-}
